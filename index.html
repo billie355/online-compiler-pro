@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>⚡ Online Compiler Pro</title>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+
+  <!-- Monaco Editor CSS (CDN) -->
+  <link rel="stylesheet" data-name="vs/editor/editor.main" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.36.1/min/vs/editor/editor.main.min.css">
+
+  <!-- Base Styles -->
+  <link rel="stylesheet" href="assets/styles.css" />
+
+  <!-- Pyodide (Python in the browser) -->
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.29.0/full/pyodide.js"></script>
+
+  <!-- Monaco Editor AMD Loader -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.36.1/min/vs/loader.min.js"></script>
+  <script>
+    // Configure Monaco paths from CDN
+    var require = { paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.36.1/min/vs' } };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.36.1/min/vs/editor/editor.main.nls.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.36.1/min/vs/editor/editor.main.js"></script>
+
+  <!-- Monaco workers proxy -->
+  <script src="assets/monaco-worker.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">⚡ Online Compiler <span class="badge">Pro</span></div>
+    <div class="controls">
+      <label class="select-wrap">
+        <span>Language</span>
+        <select id="languageSelect" aria-label="Select language"></select>
+      </label>
+      <label class="select-wrap">
+        <span>Example</span>
+        <select id="exampleSelect" aria-label="Select example"></select>
+      </label>
+      <button id="themeToggle" class="btn ghost" title="Toggle light/dark">🌙</button>
+      <button id="shareBtn" class="btn ghost" title="Share link">🔗</button>
+      <button id="runBtn" class="btn primary" disabled>Run ▶</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="pane editor-pane">
+      <div class="editor-toolbar">
+        <button id="formatBtn" class="btn sm" title="Format code">✨ Format</button>
+        <button id="clearBtn" class="btn sm" title="Clear editor">🧹 Clear</button>
+        <button id="saveLocalBtn" class="btn sm" title="Save to browser">💾 Save</button>
+        <button id="loadLocalBtn" class="btn sm" title="Load saved">📂 Load</button>
+        <div class="spacer"></div>
+        <label class="file-import">
+          <input type="file" id="fileInput" accept=".txt,.js,.py,.c,.cpp,.java,.cs,.php,.rb,.go,.swift,.kt,.ts,.rs,.sh" />
+          <span class="btn sm">Import</span>
+        </label>
+        <button id="exportBtn" class="btn sm">Export</button>
+      </div>
+      <div id="editor" aria-label="code editor"></div>
+    </section>
+
+    <section class="pane io-pane">
+      <div class="io-grid">
+        <div class="io-block">
+          <label for="stdinInput">STDIN (optional)</label>
+          <textarea id="stdinInput" placeholder="Enter input for your program…" rows="5"></textarea>
+        </div>
+        <div class="io-block">
+          <div class="output-header">
+            <strong>Output</strong>
+            <div class="output-actions">
+              <button id="copyOutputBtn" class="btn sm ghost">📋 Copy</button>
+              <button id="clearOutputBtn" class="btn sm ghost">🧹 Clear</button>
+            </div>
+          </div>
+          <pre id="output" class="output" aria-live="polite"></pre>
+          <div id="runMeta" class="meta"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <small>
+      Client‑side: JavaScript & Python (Pyodide). Server‑backed: 60+ languages via Judge0 (optional). 
+      Keyboard shortcuts: <kbd>Ctrl</kbd>+<kbd>Enter</kbd> to Run, <kbd>Ctrl</kbd>+<kbd>S</kbd> to Export.
+    </small>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
